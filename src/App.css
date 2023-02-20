@@ -41,8 +41,43 @@ li {
   background-color: yellow;
 }
 .box {
-  margin: 100px auto 0;
+  margin: 200px auto 0;
   width: 80%;
-  height: 800px;
-  background-color: turquoise;
+  height: 600px;
+  background-color: aqua;
+  display: flex;
+}
+.box-left {
+  background-color: yellowgreen;
+  width: 50%;
+  height: 100%;
+  padding: 50px;
+}
+.box-select {
+  width: 120px;
+  height: 30px;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+  border: 0;
+  outline: 0;
+  border-radius: 5px;
+  margin-bottom: 20px;
+}
+.weather {
+  display: flex;
+  align-items: center;
+}
+.weather-icon {
+  color: white;
+  font-size: 100px;
+  margin-right: 50px;
+}
+
+.box-right {
+  background-color: bisque;
+  width: 50%;
+  height: 100%;
+  padding: 50px;
+
 }
