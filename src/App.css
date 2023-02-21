@@ -2,6 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: 'Noto Sans KR', sans-serif;
 }
 a {
   text-decoration: none;
@@ -67,11 +68,17 @@ li {
 .weather {
   display: flex;
   align-items: center;
+  flex-direction: column;
 }
 .weather-icon {
-  color: white;
+  color: #222;
   font-size: 100px;
-  margin-right: 50px;
+  margin-bottom: 30px;
+}
+.weather-now {
+  color: #222;
+  font-size: 24px;
+  margin-bottom: 10px;
 }
 
 .box-right {
@@ -79,5 +86,4 @@ li {
   width: 50%;
   height: 100%;
   padding: 50px;
-
 }

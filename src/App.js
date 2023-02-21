@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Configuration, OpenAIApi } from "openai";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faHouse, faShirt, faSun, faCloud, faCloudRain } from "@fortawesome/free-solid-svg-icons";
@@ -11,13 +11,27 @@ function App() {
   let [answer, setAnswer] = useState("");
   let [iconW, setIconW] = useState("");
   const weatherKey = "f990de359e75fb9bab0b5c647cdb7937";
-  const openAiKey = "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";
+  const openAiKey = "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";
 
   const configuration = new Configuration({
     apiKey: openAiKey,
   });
   const openai = new OpenAIApi(configuration);
-  let a = "";
+
+  useEffect(() => {
+    // 날씨api
+    axios
+      .get(`https://api.openweathermap.org/data/2.5/weather?q=${loca}&lang=kr&appid=${weatherKey}&units=metric`)
+      .then((result) => {
+        setWeather(result.data);
+        console.log(result.data);
+        setIconW(result.data.weather[0].main);
+      })
+      .catch(() => {
+        console.log("fail");
+      });
+  }, [loca]);
+
   return (
     <div className="container">
       <div className="wrapper">
@@ -42,41 +56,12 @@ function App() {
                 className="box-select"
                 onChange={(e) => {
                   setLoca(e.target.value);
-                  axios
-                    .get(`https://api.openweathermap.org/data/2.5/weather?q=${loca}&lang=kr&appid=${weatherKey}&units=metric`)
-                    .then((result) => {
-                      setWeather(result.data);
-                      setIconW(result.data.weather[0].main);
-                    })
-                    .catch(() => {
-                      console.log("fail");
-                    });
-                }}
-              >
-                <option value="seoul">서울</option>
-                <option value="busan">부산</option>
-                <option value="incheon">인천</option>
-                <option value="daegu">대구</option>
-                <option value="daejeon">대전</option>
-                <option value="gwangju">광주</option>
-                <option value="ulsan">울산</option>
-              </select>
-              <div className="weather">
-                <div className="weather-icon">
-                  <FontAwesomeIcon icon={faSun} />
-                </div>
-                <div className="now">{weather ? `${loca}의 현재온도 : ${weather.main.temp} °C` : "연결안됨"}</div>
-              </div>
-            </div>
-            <div className="box-right">
-              <button
-                onClick={() => {
                   // ai api
                   openai
                     .createCompletion({
                       model: "text-davinci-003",
                       prompt: `
-              now weather : ${weather.weather[0].main}
+              now weather : ${iconW}
               current temperature : ${weather.main.temp}
               sensory temperature : ${weather.main.feels_like}
               humidity : ${weather.main.humidity}
@@ -93,9 +78,26 @@ function App() {
                       setAnswer(result.data.choices[0].text);
                     });
                 }}
+                value={loca}
               >
-                오늘 날씨에 따른 옷 추천
-              </button>
+                <option value="seoul">서울</option>
+                <option value="busan">부산</option>
+                <option value="incheon">인천</option>
+                <option value="daegu">대구</option>
+                <option value="daejeon">대전</option>
+                <option value="gwangju">광주</option>
+                <option value="ulsan">울산</option>
+              </select>
+              <div className="weather">
+                <div className="weather-icon">
+                  <Icon iconW={iconW}></Icon>
+                </div>
+                <p className="weather-now">{weather ? `${loca}의 현재온도 : ${weather.main.temp}°C ` : "연결안됨"}</p>
+                <p className="weather-now">{weather ? `현재습도 : ${weather.main.humidity}%` : "연결안됨"}</p>
+                <p className="weather-now">{weather ? `풍속 : ${weather.wind.speed}m/s` : "연결안됨"}</p>
+              </div>
+            </div>
+            <div className="box-right">
               <div>{answer ? answer : "기다리셈"}</div>
             </div>
           </div>
@@ -104,12 +106,16 @@ function App() {
     </div>
   );
 }
+
 function Icon(props) {
-  if (props.aa === "clear") {
+  if (props.iconW === "Clear") {
     return <FontAwesomeIcon icon={faSun} />;
   }
-  if (props.aa === "cloud") {
+  if (props.iconW === "Cloud") {
     return <FontAwesomeIcon icon={faCloud} />;
+  }
+  if (props.iconW === "Rain") {
+    return <FontAwesomeIcon icon={faCloudRain} />;
   }
 }
 export default App;
