@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 // import { Configuration, OpenAIApi } from "openai";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHouse, faShirt, faSun, faCloud, faCloudRain, faToggleOff, faToggleOn } from "@fortawesome/free-solid-svg-icons";
+import { faHouse, faShirt, faSun, faCloud, faCloudRain, faToggleOff, faToggleOn, faSnowflake, faCloudBolt, faCloudSunRain, faSmog } from "@fortawesome/free-solid-svg-icons";
 import axios from "axios";
 import "./App.css";
 
@@ -38,11 +38,7 @@ function App() {
     if (weather) {
       let q =
         "http://localhost:3000/translate?q=" +
-        `now weather:${iconW} current temperature : ${weather.main.temp}°C
-      sensory temperature : ${weather.main.feels_like}°C
-      humidity : ${weather.main.humidity}%
-      wind speed : ${weather.wind.speed}m/s
-      Recommend three clothes for each body part according to the weatherconditions`;
+        `now weather:${iconW}/current_temperature:${weather.main.temp}c/sensory_temperature:${weather.main.feels_like}c/humidity:${weather.main.humidity}%/wind_speed:${weather.wind.speed}m/s/Recommend_three_clothes_for_each_body_part_according_to_the_weatherconditions`;
       axios.get(q).then((r) => {
         let result = JSON.parse(r.data).message.result.translatedText;
         setAnswer(result);
@@ -79,9 +75,9 @@ function App() {
         </div>
         <div className="main">
           <div className="box">
-            <div className="box-left">
+            <div className={toggleIcon === faToggleOff ? "box-left" : "box-left dark"}>
               <select
-                className={toggleIcon === faToggleOff ? "box-select" : "box-select dark"}
+                className="box-select"
                 onChange={(e) => {
                   setLocaKR(e.target.options[e.target.selectedIndex].text);
                   setLoca(e.target.value);
@@ -125,5 +121,15 @@ function Icon(props) {
   if (props.iconW === "Rain") {
     return <FontAwesomeIcon icon={faCloudRain} />;
   }
+  if (props.iconW === "Snow") {
+    return <FontAwesomeIcon icon={faSnowflake} />;
+  }
+  if (props.iconW === "Thunderstorm") {
+    return <FontAwesomeIcon icon={faCloudBolt} />;
+  }
+  if (props.iconW === "Drizzle") {
+    return <FontAwesomeIcon icon={faSmog} />;
+  }
+  <FontAwesomeIcon icon={faCloudSunRain} />;
 }
 export default App;

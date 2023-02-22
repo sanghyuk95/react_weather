@@ -10,9 +10,9 @@ let config = new Configuration({
 });
 let openai = new OpenAIApi(config);
 
-// app.get("/", function (req, res) {
-//   res.sendFile(__dirname + "/build/index.html");
-// });
+app.get("/", function (req, res) {
+  res.sendFile(__dirname + "/build/index.html");
+});
 
 let client_id = "VnC5y8uRnb5Y6OI2cyW9";
 let client_secret = "oXCUrqNCu9";

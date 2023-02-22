@@ -2,7 +2,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Noto Sans KR', sans-serif;
+  font-family: "Noto Sans KR", sans-serif;
 }
 a {
   text-decoration: none;
@@ -15,9 +15,11 @@ li {
   width: 100%;
   height: 100vh;
   position: relative;
+  background: snow;
+  transition: background 0.5s;
 }
 .container.dark {
-  background-color: #222;
+  background: #444;
 }
 /* 다크모드 */
 .toggle-btn {
@@ -32,7 +34,7 @@ li {
   justify-content: space-between;
   z-index: 99;
   color: #222;
-  user-select:none
+  user-select: none;
 }
 .toggle-btn.dark {
   color: white;
@@ -43,6 +45,15 @@ li {
 .toggle-btn-icon {
   font-size: 30px;
 }
+@media (max-width: 836px) {
+  .toggle-btn {
+    color: white;
+    top: 15px;
+  }
+  .toggle-btn.dark {
+    color: white;
+  }
+}
 /* ----------- */
 .wrapper {
   width: 100%;
@@ -51,6 +62,7 @@ li {
 }
 .sidebar {
   width: 60px;
+  min-width: 60px;
   height: 100%;
   background-color: #222;
 }
@@ -70,18 +82,23 @@ li {
   position: relative;
 }
 .box {
-  margin: 200px auto 0;
+  margin: 0 auto;
   width: 80%;
-  height: 600px;
-  background-color: aqua;
+  min-width: 800px;
+  height: 100vh;
+  align-items: center;
   display: flex;
 }
+
 /* 날씨api */
 .box-left {
-  background-color: yellowgreen;
+  background-color: rgb(153, 189, 255);
   width: 50%;
-  height: 100%;
+  height: 70%;
   padding: 50px;
+}
+.box-left.dark {
+  background-color: #222;
 }
 .box-select {
   width: 120px;
@@ -93,10 +110,6 @@ li {
   outline: 0;
   border-radius: 5px;
   margin-bottom: 50px;
-}
-.box-select.dark {
-  background-color: #222;
-  color: white;
 }
 .weather {
   display: flex;
@@ -117,9 +130,9 @@ li {
 }
 /* ai답변 */
 .box-right {
-  background-color: bisque;
+  background-color: rgb(190, 213, 255);
   width: 50%;
-  height: 100%;
+  height: 70%;
   padding: 50px;
   font-size: 20px;
   display: flex;
@@ -129,6 +142,45 @@ li {
 }
 .box-right.dark {
   color: white;
+  background-color: #333;
 }
 
-
+@media (max-width: 836px) {
+  .container {
+    height: auto;
+  }
+  .wrapper {
+    flex-direction: column;
+    height: auto;
+  }
+  .sidebar {
+    height: 60px;
+    width: 100%;
+  }
+  .navi {
+    flex-direction: row;
+    align-items: center;
+    width: 100%;
+    height: 60px;
+    padding: 0 10px;
+  }
+  .navi li {
+    margin: 0 10px;
+  }
+  .box {
+    flex-direction: column;
+    min-width: 380px;
+    margin: 50px auto;
+  }
+  .box-left,
+  .box-right {
+    width: 100%;
+    padding: 20px;
+  }
+  .box-select {
+    margin-bottom: 30px;
+  }
+  .main {
+    height: auto;
+  }
+}
