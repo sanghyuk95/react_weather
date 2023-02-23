@@ -38,7 +38,7 @@ function App() {
     if (weather) {
       let q =
         "http://localhost:3000/translate?q=" +
-        `now weather:${iconW}/current_temperature:${weather.main.temp}c/sensory_temperature:${weather.main.feels_like}c/humidity:${weather.main.humidity}%/wind_speed:${weather.wind.speed}m/s/Recommend_three_clothes_for_each_body_part_according_to_the_weatherconditions`;
+        `now_weather:${iconW}/current_temperature:${weather.main.temp}c/sensory_temperature:${weather.main.feels_like}c/humidity:${weather.main.humidity}%/wind_speed:${weather.wind.speed}m/s//Recommend_three_clothes_for_each_body_part_according_to_the_weatherconditions`;
       axios.get(q).then((r) => {
         let result = JSON.parse(r.data).message.result.translatedText;
         setAnswer(result);

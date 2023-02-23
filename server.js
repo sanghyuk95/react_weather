@@ -52,6 +52,6 @@ app.get("/translate", function (req, res) {
       });
   });
 
-app.listen(3000, function () {
-  console.log("http://localhost:3000/ app listening on port 3000!");
+app.listen(8080, function () {
+  console.log("http://localhost:8080/ app listening on port 8080!");
 });
