@@ -6,7 +6,7 @@ const path = require("path");
 app.use(express.static(path.join(__dirname, "/build")));
 
 let config = new Configuration({
-  apiKey: "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",
+  apiKey: "app_key",
 });
 let openai = new OpenAIApi(config);
 
